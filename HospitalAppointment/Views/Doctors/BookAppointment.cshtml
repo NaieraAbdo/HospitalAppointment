@@ -1,0 +1,25 @@
+﻿@model IEnumerable<HospitalAppointment.Models.Doctor>
+
+@{
+    ViewBag.Title = "Book Appointment";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Available Doctors</h2>
+    <div class="row">
+        @foreach (var doctor in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="~/images/@doctor.Img" class="card-img-top" alt="@doctor.Name" style="height: 250px; object-fit: contain;" />
+                    <div class="card-body">
+                        <h5 class="card-title">@doctor.Name</h5>
+                        <p class="card-text"><strong>Specialization:</strong> @doctor.Specialization</p>
+                        <a href="#" class="btn btn-primary">Book Appointment</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
