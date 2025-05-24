@@ -1,0 +1,83 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model HospitalAppointment.ViewModels.AppointmentViewModel;
+
+@* @model HospitalAppointment.Models.Appointment *@
+
+@{
+    ViewBag.Title = "Complete Appointment";
+}
+
+<style>
+    main {
+        padding-top: 100px;
+    }
+
+    .copyright {
+        margin-top: 85px; 
+    }
+</style>
+
+<h3>Complete appointment with @Model.DoctorName</h3>
+
+@using (Html.BeginForm("CompleteAppointment", "Doctors", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => m.DoctorId)
+    <input type="hidden" name="DoctorName" value="@Model.DoctorName" />
+    <div class="form-group">
+        <label>Patient Name</label>
+        @Html.TextBoxFor(m => m.PatientName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.PatientName, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <label>Appointment Date</label>
+        @Html.TextBoxFor(m => m.AppointmentDate, new { @class = "form-control", type = "date" })
+        @Html.ValidationMessageFor(m => m.AppointmentDate, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <label>Appointment Time</label>
+        @Html.TextBoxFor(m => m.AppointmentTime, new { @class = "form-control", type = "time", step = "1800" })
+        @Html.ValidationMessageFor(m => m.AppointmentTime, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Complete Appointment</button>
+}
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Appointment Completed</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Your appointment has been successfully completed. Thank you!
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var showSuccess = '@ViewBag.ShowSuccessModal';
+            if (showSuccess === 'true') {
+                var myModal = new bootstrap.Modal(document.getElementById('successModal'));
+                myModal.show();
+            }
+        });
+    </script>
+}
+
+

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<HospitalAppointment.Models.Appointment>
+
+@{
+    ViewBag.Title = "List of Appointments";
+}
+<style>
+    main {
+        padding-top: 100px;
+    }
+
+    .copyright {
+        margin-top: 100px; 
+    }
+</style>
+
+
+<h2>All Appointments</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Patient Name</th>
+            <th>Doctor ID</th>
+            <th>Appointment Date</th>
+            <th>Appointment Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.PatientName</td>
+                <td>@item.DoctorId</td>
+                <td>@(item.AppointmentDate.HasValue ? item.AppointmentDate.Value.ToShortDateString() : "")</td>
+                <td>@item.AppointmentTime</td>
+            </tr>
+        }
+    </tbody>
+</table>

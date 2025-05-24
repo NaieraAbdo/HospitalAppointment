@@ -1,11 +1,49 @@
-﻿@model IEnumerable<HospitalAppointment.Models.Doctor>
+﻿@model IEnumerable<Doctor>
 
 @{
     ViewBag.Title = "Book Appointment";
+    int currentPage = ViewBag.CurrentPage ?? 1;
+    int totalPages = ViewBag.TotalPages ?? 1;
+    string searchName = ViewBag.SearchName ?? "";
+    string selectedSpec = ViewBag.SelectedSpecialization ?? "All";
+
+    var specializations = new List<string>
+    {
+        "All", "Cardiology", "Pediatrics", "Dermatology", "Orthopedics", "Neurology"
+    };
 }
+<style>
+    main {
+        padding-top: 100px;
+    }
+
+    .copyright {
+        margin-top: 85px; 
+    }
+</style>
 
 <div class="container mt-4">
     <h2 class="mb-4">Available Doctors</h2>
+
+
+    <!-- Search & Filter  -->
+    <form method="get" asp-action="BookAppointment" class="row g-3 mb-4">
+        <div class="col-md-6">
+            <input type="text" name="searchName" value="@searchName" class="form-control" placeholder="Search by name" />
+        </div>
+        <div class="col-md-4">
+            <select name="specialization" class="form-select">
+                    @foreach (var specc in specializations)
+                    {
+                        <option value="@specc" selected="@(specc == selectedSpec ? "selected" : null)">@specc</option>
+                    }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Search</button>
+        </div>
+    </form>
+
     <div class="row">
         @foreach (var doctor in Model)
         {
@@ -15,11 +53,30 @@
                     <div class="card-body">
                         <h5 class="card-title">@doctor.Name</h5>
                         <p class="card-text"><strong>Specialization:</strong> @doctor.Specialization</p>
-                        <a href="#" class="btn btn-primary">Book Appointment</a>
+                        @Html.ActionLink("Book Appointment", "CompleteAppointment", "Doctors", new { doctorId = doctor.Id }, new { @class = "btn btn-primary" })
                     </div>
                 </div>
             </div>
         }
     </div>
-</div>
 
+    <!-- Pagination Buttons -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("BookAppointment", new { page = currentPage - 1, searchName = searchName, specialization = selectedSpec })" tabindex="-1">Previous</a>
+            </li>
+
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                <li class="page-item @(i == currentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("BookAppointment", new { page = i, searchName = searchName, specialization = selectedSpec })">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("BookAppointment", new { page = currentPage + 1, searchName = searchName, specialization = selectedSpec })">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
