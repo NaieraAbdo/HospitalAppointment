@@ -7,10 +7,10 @@
     string searchName = ViewBag.SearchName ?? "";
     string selectedSpec = ViewBag.SelectedSpecialization ?? "All";
 
-    var specializations = new List<string>
-    {
-        "All", "Cardiology", "Pediatrics", "Dermatology", "Orthopedics", "Neurology"
-    };
+    // var specializations = new List<string>
+    // {
+    //     "All", "Cardiology", "Pediatrics", "Dermatology", "Orthopedics", "Neurology"
+    // };
 }
 <style>
     main {
@@ -33,10 +33,15 @@
         </div>
         <div class="col-md-4">
             <select name="specialization" class="form-select">
-                    @foreach (var specc in specializations)
+                    @* @foreach (var specc in specializations)
                     {
                         <option value="@specc" selected="@(specc == selectedSpec ? "selected" : null)">@specc</option>
-                    }
+                    } *@
+                @foreach(var doctor in Model)
+                {
+                    <option value="@doctor.Specialization" selected="@(doctor.Specialization == selectedSpec ? "selected" : null)">@doctor.Specialization</option>
+
+                }
             </select>
         </div>
         <div class="col-md-2">

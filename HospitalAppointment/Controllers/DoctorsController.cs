@@ -14,23 +14,21 @@ namespace HospitalAppointment.Controllers
             var data = new SampleDataDoctors();
             var doctors = data.doctors.AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(searchName))
+
+            if (searchName is not null)
             {
                 doctors = doctors.Where(d => d.Name.Contains(searchName, System.StringComparison.OrdinalIgnoreCase));
             }
 
-            if (!string.IsNullOrEmpty(specialization) && specialization != "All")
+            if (specialization is not null && specialization != "All")
             {
                 doctors = doctors.Where(d => d.Specialization == specialization);
             }
-            int pageSize = 3;
-            int totalDoctors = doctors.Count();
-            int totalPages = (int)System.Math.Ceiling(totalDoctors / (double)pageSize);
 
-            var doctorsPaged = doctors
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
+            int totalDoctors = doctors.Count();
+            int totalPages = (int)Math.Ceiling(totalDoctors / (double)3);
+            var doctorsPaged = doctors.Skip((page - 1) * 3).Take(3).ToList();
+
             ViewBag.CurrentPage = page;
             ViewBag.TotalPages = totalPages;
             ViewBag.SearchName = searchName;
