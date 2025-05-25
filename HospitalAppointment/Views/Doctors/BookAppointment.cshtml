@@ -6,6 +6,7 @@
     int totalPages = ViewBag.TotalPages ?? 1;
     string searchName = ViewBag.SearchName ?? "";
     string selectedSpec = ViewBag.SelectedSpecialization ?? "All";
+    var doctors = ViewBag.Doctors ;
 
     // var specializations = new List<string>
     // {
@@ -37,7 +38,7 @@
                     {
                         <option value="@specc" selected="@(specc == selectedSpec ? "selected" : null)">@specc</option>
                     } *@
-                @foreach(var doctor in Model)
+                @foreach(var doctor in doctors)
                 {
                     <option value="@doctor.Specialization" selected="@(doctor.Specialization == selectedSpec ? "selected" : null)">@doctor.Specialization</option>
 

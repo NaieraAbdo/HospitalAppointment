@@ -13,6 +13,7 @@ namespace HospitalAppointment.Controllers
         {
             var data = new SampleDataDoctors();
             var doctors = data.doctors.AsQueryable();
+            
 
 
             if (searchName is not null)
@@ -33,6 +34,7 @@ namespace HospitalAppointment.Controllers
             ViewBag.TotalPages = totalPages;
             ViewBag.SearchName = searchName;
             ViewBag.SelectedSpecialization = specialization;
+            ViewBag.Doctors = doctors;
 
             return View(doctorsPaged);
         }
