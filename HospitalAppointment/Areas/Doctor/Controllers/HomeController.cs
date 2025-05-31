@@ -2,8 +2,9 @@ using System.Diagnostics;
 using HospitalAppointment.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HospitalAppointment.Controllers
+namespace HospitalAppointment.Areas.Doctor.Controllers
 {
+    [Area("Doctor")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

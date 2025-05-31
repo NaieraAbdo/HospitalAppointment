@@ -1,0 +1,45 @@
+﻿@model List<HospitalAppointment.Models.Doctor>
+
+@{
+    ViewData["Title"] = "All Doctors";
+}
+<div class="row mb-3 align-items-center">
+    <div class="col-md-6">
+        <h2 class="display-6">All Doctors</h2>
+    </div>
+    <div class="col-md-6 text-md-end text-start mt-2 mt-md-0">
+        <a href="/Admin/Doctors/Create" class="btn btn-success">Create</a>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped table-hover text-center">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Doctor Image</th>
+            <th>Name</th>
+            <th>Specialization</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var doc in Model)
+        {
+            <tr>
+                <td>@doc.Id</td>
+                <td>
+                    <img src="~/images/@doc.Img" alt="@doc.Name" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;" />
+                </td>
+                <td>@doc.Name</td>
+                <td>@doc.Specialization</td>
+                <td>
+                    <a href="" type="button" class="btn btn-warning">Edit</a>
+                    <a href="" type="button" class="btn btn-danger">Delete</a>
+                </td>
+               
+            </tr>
+        }
+    </tbody>
+</table>
+
+

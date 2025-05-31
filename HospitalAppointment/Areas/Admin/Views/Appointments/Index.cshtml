@@ -1,0 +1,71 @@
+﻿@model IEnumerable<HospitalAppointment.Models.Appointment>
+
+@{
+    ViewBag.Title = "List of Appointments";
+}
+<style>
+    main {
+        padding-top: 100px;
+    }
+
+    .copyright {
+        margin-top: 100px;
+    }
+</style>
+
+<div class="container">
+    <div class="row mb-3 align-items-center">
+        <div class="col-md-6">
+            <h2 class="display-6">All Appointments</h2>
+        </div>
+        <div class="col-md-6 text-md-end text-start mt-2 mt-md-0">
+            <a href="/Admin/Appointments/Create" class="btn btn-success">Create</a>
+        </div>
+    </div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Patient Name</th>
+            <th>Doctor ID</th>
+            <th>Appointment Date</th>
+            <th>Appointment Time</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model is not null){
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.PatientName</td>
+                <td>@item.DoctorId</td>
+                <td>@(item.AppointmentDate.HasValue? item.AppointmentDate.Value.ToShortDateString() : "")</td>
+                <td>@item.AppointmentTime</td>
+                <td>
+                    <a href="/Admin/Appointments/Edit/@item.Id" type="button" class="btn btn-warning">Edit</a>
+                    <button class="btn btn-danger" onclick="confirmDelete(@item.Id)">Delete</button>
+                </td>
+            </tr>
+        }
+        }
+    </tbody>
+</table>
+    <script>
+        function confirmDelete(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6', 
+                cancelButtonColor: '#d33',     أحمر
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = `/Admin/Appointments/Delete/${id}`;
+                }
+            });
+        }
+    </script>
+
+</div>

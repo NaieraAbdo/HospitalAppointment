@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace HospitalAppointment.Controllers
+namespace HospitalAppointment.Areas.Doctor.Controllers
 {
+    [Area("Doctor")]
     public class DoctorsController : Controller
     {
         public IActionResult BookAppointment(string searchName = "", string specialization = "All", int page = 1)
@@ -18,7 +19,7 @@ namespace HospitalAppointment.Controllers
 
             if (searchName is not null)
             {
-                doctors = doctors.Where(d => d.Name.Contains(searchName, System.StringComparison.OrdinalIgnoreCase));
+                doctors = doctors.Where(d => d.Name.Contains(searchName, StringComparison.OrdinalIgnoreCase));
             }
 
             if (specialization is not null && specialization != "All")

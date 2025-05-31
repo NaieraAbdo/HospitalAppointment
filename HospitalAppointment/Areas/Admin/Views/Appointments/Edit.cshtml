@@ -1,0 +1,29 @@
+﻿@model Appointment
+
+
+<h2 class="text-center mb-4">Edit Appointment</h2>
+
+<form method="post" class="container" style="max-width: 500px;">
+    <div class="mb-3">
+        <label for="patientName" class="form-label">Patient Name</label>
+        <input type="text" class="form-control" id="patientName" name="PatientName" required value="@Model.PatientName" />
+    </div>
+
+    <div class="mb-3">
+        <label for="doctorId" class="form-label">Doctor ID</label>
+        <input type="text" class="form-control" id="doctorId" name="DoctorId" required value="@Model.DoctorId" />
+    </div>
+
+    <div class="mb-3">
+        <label for="appointmentDate" class="form-label">Appointment Date</label>
+        <input type="date" class="form-control" id="appointmentDate" name="AppointmentDate" required value="@Model.AppointmentDate" />
+    </div>
+
+    <div class="mb-3">
+        <label for="appointmentTime" class="form-label">Appointment Time</label>
+        <input type="time" class="form-control" id="appointmentTime" name="AppointmentTime" required value="@Model.AppointmentTime" />
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Confirm Appointment</button>
+</form>
+

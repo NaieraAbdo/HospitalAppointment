@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Add Doctor";
+}
+
+<h2 class="text-center mb-4">Add New Doctor</h2>
+
+<form  method="post" class="container" style="max-width: 500px;">
+    <div class="mb-3">
+        <label for="Id" class="form-label">Doctor ID</label>
+        <input type="number" class="form-control" id="Id" name="Id" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="Name" class="form-label">Doctor Name</label>
+        <input type="text" class="form-control" id="Name" name="Name" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="Specialization" class="form-label">Specialization</label>
+        <input type="text" class="form-control" id="Specialization" name="Specialization" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="Img" class="form-label">Doctor Image (e.g., doctor1.jpg)</label>
+        <input type="text" class="form-control" id="Img" name="Img" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Add Doctor</button>
+</form>
+
