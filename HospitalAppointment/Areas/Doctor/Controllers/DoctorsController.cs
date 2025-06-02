@@ -10,16 +10,14 @@ namespace HospitalAppointment.Areas.Doctor.Controllers
     [Area("Doctor")]
     public class DoctorsController : Controller
     {
+        private readonly ApplicationDbContext _context = new();
         public IActionResult BookAppointment(string searchName = "", string specialization = "All", int page = 1)
         {
-            var data = new SampleDataDoctors();
-            var doctors = data.doctors.AsQueryable();
-            
-
+            var doctors = _context.Doctors.AsQueryable();
 
             if (searchName is not null)
             {
-                doctors = doctors.Where(d => d.Name.Contains(searchName, StringComparison.OrdinalIgnoreCase));
+                doctors = doctors.Where(d => d.Name.ToLower().Contains(searchName.ToLower()));
             }
 
             if (specialization is not null && specialization != "All")
@@ -43,8 +41,7 @@ namespace HospitalAppointment.Areas.Doctor.Controllers
 
         public ActionResult CompleteAppointment(int doctorId)
         {
-            var data = new SampleDataDoctors();
-            var doctor = data.doctors.FirstOrDefault(d => d.Id == doctorId);
+            var doctor = _context.Doctors.FirstOrDefault(d => d.Id == doctorId);
 
             if (doctor == null)
                 return NotFound();
@@ -80,7 +77,7 @@ namespace HospitalAppointment.Areas.Doctor.Controllers
 
             ViewBag.ShowSuccessModal = "true";
             ModelState.Clear();
-            var doctorName = new SampleDataDoctors().doctors.FirstOrDefault(d => d.Id == model.DoctorId)?.Name;
+            var doctorName = _context.Doctors.FirstOrDefault(d => d.Id == model.DoctorId)?.Name;
             return View(new AppointmentViewModel { DoctorId = model.DoctorId,
                 DoctorName = doctorName
             });

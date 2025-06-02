@@ -33,13 +33,29 @@
                 <td>@doc.Name</td>
                 <td>@doc.Specialization</td>
                 <td>
-                    <a href="" type="button" class="btn btn-warning">Edit</a>
-                    <a href="" type="button" class="btn btn-danger">Delete</a>
+                    <a href="/Admin/Doctors/Edit/@doc.Id" type="button" class="btn btn-warning">Edit</a>
+                    <button class="btn btn-danger" onclick="confirmDelete(@doc.Id)">Delete</button>
                 </td>
                
             </tr>
         }
     </tbody>
 </table>
-
+<script>
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = `/Admin/Doctors/Delete/${id}`;
+            }
+        });
+    }
+</script>
 

@@ -1,0 +1,54 @@
+﻿@model Doctor
+
+<h2 class="text-center mb-4">Edit Doctor</h2>
+
+<form method="post"  class="container" style="max-width: 600px;">
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Doctor Name</label>
+        <input asp-for="Name" class="form-control" name="Name" value="@Model.Name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Specialization" class="form-label">Specialization</label>
+        <input asp-for="Specialization" class="form-control" name="Specialization" value="@Model.Specialization"/>
+        <span asp-validation-for="Specialization" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Current Image</label><br />
+        @if (!string.IsNullOrEmpty(Model.Img))
+        {
+            <img src="~/images/@Model.Img" alt="Doctor Image" class="img-thumbnail" style="max-height: 200px;" />
+        }
+        else
+        {
+            <p>No image available</p>
+        }
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Upload New Image</label>
+        <input type="file"  class="form-control" name="Img" 
+        onchange="previewImage(event)"/>
+        <img id="imgPreview" src="#" alt="image preview" class="img-thumbnail mt-2" style="display: none; max-height:200px;" />
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Update Doctor</button>
+</form>
+
+<script>
+    function previewImage(event){
+        const input = event.target;
+        const preview = document.getElementById('imgPreview');
+        if(input.files && input.files[0]){
+            const reader = new FileReader();
+
+            reader.onload= function (e){
+                preview.src =e.target.result;
+                preview.style.display='block';
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
