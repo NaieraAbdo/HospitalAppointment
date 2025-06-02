@@ -1,6 +1,7 @@
 ﻿using HospitalAppointment.Data;
 using HospitalAppointment.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HospitalAppointment.Areas.Admin.Controllers
 {
@@ -10,7 +11,8 @@ namespace HospitalAppointment.Areas.Admin.Controllers
         private readonly ApplicationDbContext _context = new ();
         public IActionResult Index()
         {
-            var appointments = _context.Appointments;
+            var appointments = _context.Appointments.Include(a => a.Doctor) 
+        .ToList();
             return View(appointments.ToList());
         }
 

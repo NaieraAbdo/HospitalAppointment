@@ -88,7 +88,8 @@ namespace HospitalAppointment.Areas.Doctor.Controllers
         public IActionResult ListAppointments()
         {
             var _context = new ApplicationDbContext();
-            var appointments = _context.Appointments.ToList();
+            var appointments = _context.Appointments.Include(a => a.Doctor)
+                  .ToList();
             return View(appointments);
         }
 

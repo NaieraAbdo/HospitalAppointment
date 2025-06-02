@@ -20,7 +20,7 @@
     <thead>
         <tr>
             <th>Patient Name</th>
-            <th>Doctor ID</th>
+            <th>Doctor Name</th>
             <th>Appointment Date</th>
             <th>Appointment Time</th>
         </tr>
@@ -30,7 +30,7 @@
         {
             <tr>
                 <td>@item.PatientName</td>
-                <td>@item.DoctorId</td>
+                <td>@item.Doctor.Name</td>
                 <td>@(item.AppointmentDate.HasValue ? item.AppointmentDate.Value.ToShortDateString() : "")</td>
                 <td>@item.AppointmentTime</td>
             </tr>

@@ -9,5 +9,6 @@ namespace HospitalAppointment.Models
         public string PatientName { get; set; }
         public DateTime? AppointmentDate { get; set; }
         public TimeSpan? AppointmentTime { get; set; }
+        public Doctor Doctor { get; set; }
     }
 }
